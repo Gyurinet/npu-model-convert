@@ -57,14 +57,17 @@ def load(path, npu):
     # 먼저 만든 캐시를 그대로 쓴다. 파일 내용의 해시를 model_token으로 주어 따로 저장한다
     with open(path, "rb") as fp:
         token = hashlib.sha1(fp.read()).hexdigest()[:16]
+    # 델리게이트 라이브러리가 없거나 열리지 않으면(설치 문제) 그대로 오류로 멈춘다
+    with quiet():
+        delegate = load_delegate(DELEGATE, {**OPTIONS, "model_token": token})
     try:
         with quiet():
-            opts = {**OPTIONS, "model_token": token}
-            it = Interpreter(path, experimental_delegates=[load_delegate(DELEGATE, opts)])
+            it = Interpreter(path, experimental_delegates=[delegate])
             it.allocate_tensors()
         return it
-    # NPU가 맡지 못하는 연산이 있으면 델리게이트 적용이 실패한다
-    except (RuntimeError, ValueError):
+    except RuntimeError:
+        # NPU가 맡지 못하는 연산이 있으면 델리게이트 적용이 RuntimeError로 실패한다.
+        # 이 스크립트는 NPU에 올라가는지 알려 주는 것이 목적이라, 알리고 다음 모델로 넘어간다
         print("  NPU에 올리지 못함(QNN_VERBOSE=1로 다시 실행하면 이유가 보인다)")
         return None
 
