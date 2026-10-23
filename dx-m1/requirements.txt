@@ -1,0 +1,3 @@
+# DX-M1용 변환(DX-COM), 변환용 PC(x86_64, Python 3.12). 저장소 맨 위의 requirements.txt를 먼저 설치한다.
+dx-com==2.4.1
+ultralytics==8.4.184

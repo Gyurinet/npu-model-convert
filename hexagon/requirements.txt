@@ -1,0 +1,10 @@
+# 내장 NPU(Hexagon)용 변환(to_tflite.py), 변환용 PC(x86_64, Python 3.12)에서 검증한 버전.
+# 저장소 맨 위의 requirements.txt(torch, torchvision, onnx, onnxruntime, pillow)를 먼저 설치한다.
+tensorflow==2.21.0
+tf_keras==2.21.0
+onnx2tf==2.6.9
+onnx_graphsurgeon==0.6.1
+onnxsim==0.6.5
+sng4onnx==2.0.1
+psutil==5.9.5
+ai-edge-litert==2.1.2

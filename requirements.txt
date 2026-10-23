@@ -1,0 +1,6 @@
+# 변환용 PC(x86_64, Python 3.12) 공용: 모델 내보내기(export_torchvision.py), ONNX 확인(check_onnx.py),
+# 평가 세트 만들기(eval/classify_prepare.py). GPU가 없으면 torch·torchvision은 먼저 CPU판으로 설치한다:
+#   pip install torch==2.14.1 torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cpu
+onnx==1.20.1
+onnxruntime==1.26.0
+pillow==12.3.0
